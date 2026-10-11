@@ -1,0 +1,33 @@
+# Настройки для хостинга на Apache. Если хостинг использует nginx, файл игнорируется.
+
+# Страница для несуществующих адресов
+ErrorDocument 404 /404.html
+
+# Главная страница по умолчанию
+DirectoryIndex index.html
+
+# Запрет просмотра списка файлов в папках
+Options -Indexes
+
+# Сжатие текстовых файлов
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json application/ld+json image/svg+xml
+</IfModule>
+
+# Кеширование в браузере посетителя
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# Перенаправление на HTTPS. Раскомментируйте после того, как на хостинге включён сертификат.
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{HTTPS} off
+#   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>
